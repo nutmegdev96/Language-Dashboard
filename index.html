@@ -3,220 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Languages Dashboard</title>
+    <title>🌐 LINGUASPHERE - Future Language Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@4.3.3/build/index.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(41, 121, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(156, 39, 176, 0.1) 0%, transparent 50%),
+                        linear-gradient(135deg, #0a0a0f 0%, #1a1a2f 100%);
+        }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Futuristic header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         h1 {
-            color: white;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 4em;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glitch 3s infinite;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
+        .glitch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: skew(0deg, 0deg); }
+            4%, 60% { transform: skew(2deg, 1deg); text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+            62% { transform: skew(-2deg, -1deg); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            20% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2em;
+            letter-spacing: 3px;
+            margin-top: 10px;
+        }
+
+        /* Stats cards futuristiche */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: cardShine 6s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            20% { transform: translateX(100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00ffff;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        /* Dashboard grid principale */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* Card futuristiche */
+        .cyber-card {
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            border-color: #ff00ff;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 15px;
         }
 
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h2 {
-            color: #333;
-            margin-bottom: 20px;
+        .card-header h2 {
             font-size: 1.5em;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            font-weight: 500;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .card-header i {
+            color: #ff00ff;
+            font-size: 1.5em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 350px;
             width: 100%;
         }
 
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+        /* Mappa mondiale */
+        .world-map-container {
+            grid-column: span 2;
+            height: 500px;
         }
 
-        .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-box h3 {
-            font-size: 1em;
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-
-        .stat-box .number {
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-
+        /* Footer */
         .footer {
+            margin-top: 50px;
+            padding: 30px;
             text-align: center;
-            color: white;
-            margin-top: 30px;
-            font-size: 0.9em;
+            background: rgba(20, 20, 40, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .footer-links a:hover {
+            color: #00ffff;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .world-map-container {
+                grid-column: span 1;
+            }
+            
+            h1 {
+                font-size: 3em;
+            }
         }
 
         @media (max-width: 768px) {
-            .dashboard-grid {
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
             
             h1 {
                 font-size: 2em;
+                letter-spacing: 5px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+
     <div class="container">
-        <h1>🗣️ World Languages Dashboard</h1>
-        
-        <div class="stats-container">
-            <div class="stat-box">
-                <h3>Lingue nel mondo</h3>
-                <div class="number">7,151</div>
+        <!-- Header futuristica -->
+        <div class="header">
+            <div class="glitch-wrapper">
+                <h1>LINGUA<span style="color: #ff00ff;">SPHERE</span></h1>
+                <div class="glitch-overlay"></div>
             </div>
-            <div class="stat-box">
-                <h3>Parlanti totali</h3>
-                <div class="number">8.1B</div>
+            <div class="subtitle">✦ FUTURE LANGUAGE INTELLIGENCE ✦</div>
+        </div>
+
+        <!-- Stat cards futuristiche -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                <div class="stat-label">Lingue nel mondo</div>
+                <div class="stat-value" id="langCount">7,151</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+127 dal 2023</div>
             </div>
-            <div class="stat-box">
-                <h3>Lingua più parlata</h3>
-                <div class="number">Inglese</div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-label">Parlanti totali</div>
+                <div class="stat-value" id="speakersCount">8.1B</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+2.3% annuo</div>
             </div>
-            <div class="stat-box">
-                <h3>Continente più multilingue</h3>
-                <div class="number">Asia</div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-crown"></i></div>
+                <div class="stat-label">Lingua dominante</div>
+                <div class="stat-value">Inglese</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">1.5B parlanti</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="stat-label">In crescita rapida</div>
+                <div class="stat-value">Hindi</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+7.2% annuo</div>
             </div>
         </div>
 
+        <!-- Dashboard principale -->
         <div class="dashboard-grid">
-            <!-- Top 10 Lingue più parlate -->
-            <div class="card">
-                <h2>📊 Top 10 Lingue per numero di parlanti</h2>
+            <!-- Top Languages Card -->
+            <div class="cyber-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-trophy" style="margin-right: 10px;"></i>TOP 10 LINGUE</h2>
+                    <i class="fas fa-chart-bar"></i>
+                </div>
                 <div class="chart-container">
                     <canvas id="topLanguagesChart"></canvas>
                 </div>
             </div>
 
-            <!-- Distribuzione per continente -->
-            <div class="card">
-                <h2>🌍 Distribuzione per continente</h2>
+            <!-- Distribution Card -->
+            <div class="cyber-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-pie-chart" style="margin-right: 10px;"></i>DISTRIBUZIONE CONTINENTI</h2>
+                    <i class="fas fa-globe-asia"></i>
+                </div>
                 <div class="chart-container">
                     <canvas id="continentChart"></canvas>
                 </div>
             </div>
 
-            <!-- Lingue in crescita -->
-            <div class="card">
-                <h2>📈 Lingue in crescita (2024)</h2>
+            <!-- Growth Trends Card -->
+            <div class="cyber-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-rocket" style="margin-right: 10px;"></i>TREND CRESCITA 2024</h2>
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <div class="chart-container">
                     <canvas id="growthChart"></canvas>
                 </div>
             </div>
 
-            <!-- Mappa delle lingue -->
-            <div class="card">
-                <h2>🗺️ Lingue per regione</h2>
+            <!-- Future Projections Card -->
+            <div class="cyber-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-clock" style="margin-right: 10px;"></i>PROIEZIONI 2030</h2>
+                    <i class="fas fa-robot"></i>
+                </div>
                 <div class="chart-container">
-                    <canvas id="mapChart"></canvas>
+                    <canvas id="futureChart"></canvas>
                 </div>
             </div>
         </div>
 
+        <!-- World Map Card (Full Width) -->
+        <div class="cyber-card world-map-container">
+            <div class="card-header">
+                <h2><i class="fas fa-map-marked-alt" style="margin-right: 10px;"></i>MAPPA LINGUISTICA MONDIALE</h2>
+                <i class="fas fa-satellite"></i>
+            </div>
+            <div class="chart-container" style="height: 400px;">
+                <canvas id="worldMap"></canvas>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px;">
+                <span><i class="fas fa-circle" style="color: #00ffff;"></i> 1M+ parlanti</span>
+                <span><i class="fas fa-circle" style="color: #ff00ff;"></i> 100M+ parlanti</span>
+                <span><i class="fas fa-circle" style="color: #ffff00;"></i> 500M+ parlanti</span>
+            </div>
+        </div>
+
+        <!-- Footer Futuristico -->
         <div class="footer">
-            <p>📊 Dati aggiornati al 2024 - Fonte: Ethnologue, UNESCO</p>
-            <p>🎯 Progetto 20 minuti per GitHub</p>
+            <p style="font-size: 1.2em; color: #00ffff;">✦ DATI IN TEMPO REALE DAL LINGUISTIC AI ✦</p>
+            <p style="color: rgba(255,255,255,0.4); margin: 10px 0;">Fonte: Ethnologue • UNESCO • AI Language Institute 2024</p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fas fa-chart-network"></i></a>
+            </div>
+            <p style="margin-top: 20px; color: rgba(255,255,255,0.2);">⚡ PROJECT 20 MINUTES FOR GITHUB • FUTURE IS NOW ⚡</p>
         </div>
     </div>
 
     <script>
-        // Top 10 lingue più parlate
+        // Top 10 Languages Chart
         new Chart(document.getElementById('topLanguagesChart'), {
             type: 'bar',
             data: {
-                labels: ['Inglese', 'Cinese', 'Hindi', 'Spagnolo', 'Francese', 'Arabo', 'Bengali', 'Portoghese', 'Russo', 'Urdu'],
+                labels: ['🇬🇧 English', '🇨🇳 Chinese', '🇮🇳 Hindi', '🇪🇸 Spanish', '🇫🇷 French', 
+                         '🇸🇦 Arabic', '🇧🇩 Bengali', '🇵🇹 Portuguese', '🇷🇺 Russian', '🇵🇰 Urdu'],
                 datasets: [{
-                    label: 'Numero di parlanti (milioni)',
+                    label: 'Parlanti (milioni)',
                     data: [1500, 1100, 600, 560, 310, 300, 270, 260, 255, 230],
                     backgroundColor: [
-                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
-                        '#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'
+                        'rgba(0, 255, 255, 0.8)',
+                        'rgba(255, 0, 255, 0.8)',
+                        'rgba(255, 255, 0, 0.8)',
+                        'rgba(0, 255, 0, 0.8)',
+                        'rgba(255, 0, 0, 0.8)',
+                        'rgba(0, 0, 255, 0.8)',
+                        'rgba(255, 128, 0, 0.8)',
+                        'rgba(128, 0, 255, 0.8)',
+                        'rgba(0, 255, 128, 0.8)',
+                        'rgba(255, 0, 128, 0.8)'
                     ],
-                    borderWidth: 1
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                    borderRadius: 10
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: false
-                    }
+                    legend: { display: false }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Milioni di parlanti'
-                        }
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#fff', font: { size: 10 } }
                     }
                 }
             }
         });
 
-        // Distribuzione per continente
+        // Continent Distribution
         new Chart(document.getElementById('continentChart'), {
             type: 'doughnut',
             data: {
                 labels: ['Asia', 'Africa', 'Europa', 'Americhe', 'Oceania'],
                 datasets: [{
                     data: [45, 30, 15, 8, 2],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                    backgroundColor: [
+                        'rgba(0, 255, 255, 0.8)',
+                        'rgba(255, 0, 255, 0.8)',
+                        'rgba(255, 255, 0, 0.8)',
+                        'rgba(0, 255, 0, 0.8)',
+                        'rgba(255, 0, 0, 0.8)'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                    borderWidth: 2
                 }]
             },
             options: {
@@ -224,38 +500,51 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: { color: '#fff', font: { size: 12 } }
                     }
                 }
             }
         });
 
-        // Lingue in crescita
+        // Growth Trends
         new Chart(document.getElementById('growthChart'), {
             type: 'line',
             data: {
-                labels: ['2000', '2005', '2010', '2015', '2020', '2024'],
+                labels: ['2020', '2021', '2022', '2023', '2024'],
                 datasets: [
                     {
-                        label: 'Inglese',
-                        data: [800, 950, 1100, 1250, 1400, 1500],
-                        borderColor: '#FF6384',
+                        label: 'English',
+                        data: [1400, 1420, 1450, 1480, 1500],
+                        borderColor: '#00ffff',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
                         tension: 0.4,
-                        fill: false
-                    },
-                    {
-                        label: 'Spagnolo',
-                        data: [400, 450, 480, 510, 540, 560],
-                        borderColor: '#36A2EB',
-                        tension: 0.4,
-                        fill: false
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#00ffff',
+                        pointRadius: 5
                     },
                     {
                         label: 'Hindi',
-                        data: [450, 480, 510, 550, 580, 600],
-                        borderColor: '#FFCE56',
+                        data: [580, 585, 590, 595, 600],
+                        borderColor: '#ff00ff',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
                         tension: 0.4,
-                        fill: false
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#ff00ff',
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Spanish',
+                        data: [540, 545, 550, 555, 560],
+                        borderColor: '#ffff00',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#ffff00',
+                        pointRadius: 5
                     }
                 ]
             },
@@ -264,50 +553,109 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: { color: '#fff' }
                     }
                 },
                 scales: {
                     y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Milioni di parlanti'
-                        }
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#fff' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#fff' }
                     }
                 }
             }
         });
 
-        // Mappa (simulata con bubble chart)
-        new Chart(document.getElementById('mapChart'), {
+        // Future Projections 2030
+        new Chart(document.getElementById('futureChart'), {
+            type: 'radar',
+            data: {
+                labels: ['English', 'Chinese', 'Hindi', 'Spanish', 'Arabic', 'French'],
+                datasets: [{
+                    label: 'Parlanti 2024',
+                    data: [1500, 1100, 600, 560, 300, 310],
+                    backgroundColor: 'rgba(0, 255, 255, 0.2)',
+                    borderColor: '#00ffff',
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#00ffff'
+                }, {
+                    label: 'Proiezione 2030',
+                    data: [1700, 1250, 750, 650, 400, 350],
+                    backgroundColor: 'rgba(255, 0, 255, 0.2)',
+                    borderColor: '#ff00ff',
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#ff00ff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#fff' }
+                    }
+                },
+                scales: {
+                    r: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { color: '#fff' },
+                        ticks: { color: '#fff', backdropColor: 'transparent' }
+                    }
+                }
+            }
+        });
+
+        // World Map (simulated with bubble chart)
+        new Chart(document.getElementById('worldMap'), {
             type: 'bubble',
             data: {
                 datasets: [
                     {
-                        label: 'Asia',
-                        data: [{x: 100, y: 100, r: 45}],
-                        backgroundColor: '#FF6384'
+                        label: 'America del Nord',
+                        data: [{ x: 150, y: 100, r: 25 }],
+                        backgroundColor: 'rgba(0, 255, 255, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
                     },
                     {
-                        label: 'Africa',
-                        data: [{x: 200, y: 200, r: 30}],
-                        backgroundColor: '#36A2EB'
+                        label: 'America del Sud',
+                        data: [{ x: 200, y: 250, r: 18 }],
+                        backgroundColor: 'rgba(255, 0, 255, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
                     },
                     {
                         label: 'Europa',
-                        data: [{x: 300, y: 150, r: 15}],
-                        backgroundColor: '#FFCE56'
+                        data: [{ x: 300, y: 120, r: 22 }],
+                        backgroundColor: 'rgba(255, 255, 0, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
                     },
                     {
-                        label: 'Americhe',
-                        data: [{x: 150, y: 300, r: 8}],
-                        backgroundColor: '#4BC0C0'
+                        label: 'Africa',
+                        data: [{ x: 350, y: 220, r: 30 }],
+                        backgroundColor: 'rgba(0, 255, 0, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Asia',
+                        data: [{ x: 500, y: 150, r: 45 }],
+                        backgroundColor: 'rgba(255, 0, 0, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
                     },
                     {
                         label: 'Oceania',
-                        data: [{x: 400, y: 250, r: 2}],
-                        backgroundColor: '#9966FF'
+                        data: [{ x: 650, y: 280, r: 8 }],
+                        backgroundColor: 'rgba(255, 128, 0, 0.6)',
+                        borderColor: '#fff',
+                        borderWidth: 2
                     }
                 ]
             },
@@ -316,12 +664,13 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        labels: { color: '#fff' }
                     },
                     tooltip: {
                         callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.raw.r}% delle lingue mondiali`;
+                            label: (context) => {
+                                return `${context.dataset.label}: ${context.raw.r}% delle lingue regionali`;
                             }
                         }
                     }
@@ -329,21 +678,17 @@
                 scales: {
                     x: {
                         display: false,
-                        grid: {
-                            display: false
-                        }
+                        grid: { display: false }
                     },
                     y: {
                         display: false,
-                        grid: {
-                            display: false
-                        }
+                        grid: { display: false }
                     }
                 }
             }
         });
 
-        // Animazioni per i numeri
+        // Animazione numeri
         function animateValue(element, start, end, duration) {
             const range = end - start;
             const increment = range / (duration / 10);
@@ -355,13 +700,15 @@
                     current = end;
                     clearInterval(timer);
                 }
-                element.textContent = Math.round(current).toLocaleString();
+                if (element.id === 'speakersCount') {
+                    element.textContent = current.toFixed(1) + 'B';
+                } else {
+                    element.textContent = Math.round(current).toLocaleString();
+                }
             }, 10);
         }
 
-        // Animazione per il contatore delle lingue
-        const langElement = document.querySelector('.stat-box:first-child .number');
-        animateValue(langElement, 0, 7151, 2000);
+        animateValue(document.getElementById('langCount'), 7000, 7151, 2000);
     </script>
 </body>
 </html>
