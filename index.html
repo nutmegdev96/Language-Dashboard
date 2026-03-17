@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Languages Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-geo@4.3.3/build/index.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box h3 {
+            font-size: 1em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗣️ World Languages Dashboard</h1>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>Lingue nel mondo</h3>
+                <div class="number">7,151</div>
+            </div>
+            <div class="stat-box">
+                <h3>Parlanti totali</h3>
+                <div class="number">8.1B</div>
+            </div>
+            <div class="stat-box">
+                <h3>Lingua più parlata</h3>
+                <div class="number">Inglese</div>
+            </div>
+            <div class="stat-box">
+                <h3>Continente più multilingue</h3>
+                <div class="number">Asia</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Top 10 Lingue più parlate -->
+            <div class="card">
+                <h2>📊 Top 10 Lingue per numero di parlanti</h2>
+                <div class="chart-container">
+                    <canvas id="topLanguagesChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Distribuzione per continente -->
+            <div class="card">
+                <h2>🌍 Distribuzione per continente</h2>
+                <div class="chart-container">
+                    <canvas id="continentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Lingue in crescita -->
+            <div class="card">
+                <h2>📈 Lingue in crescita (2024)</h2>
+                <div class="chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Mappa delle lingue -->
+            <div class="card">
+                <h2>🗺️ Lingue per regione</h2>
+                <div class="chart-container">
+                    <canvas id="mapChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📊 Dati aggiornati al 2024 - Fonte: Ethnologue, UNESCO</p>
+            <p>🎯 Progetto 20 minuti per GitHub</p>
+        </div>
+    </div>
+
+    <script>
+        // Top 10 lingue più parlate
+        new Chart(document.getElementById('topLanguagesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Inglese', 'Cinese', 'Hindi', 'Spagnolo', 'Francese', 'Arabo', 'Bengali', 'Portoghese', 'Russo', 'Urdu'],
+                datasets: [{
+                    label: 'Numero di parlanti (milioni)',
+                    data: [1500, 1100, 600, 560, 310, 300, 270, 260, 255, 230],
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                        '#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Milioni di parlanti'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Distribuzione per continente
+        new Chart(document.getElementById('continentChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Asia', 'Africa', 'Europa', 'Americhe', 'Oceania'],
+                datasets: [{
+                    data: [45, 30, 15, 8, 2],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Lingue in crescita
+        new Chart(document.getElementById('growthChart'), {
+            type: 'line',
+            data: {
+                labels: ['2000', '2005', '2010', '2015', '2020', '2024'],
+                datasets: [
+                    {
+                        label: 'Inglese',
+                        data: [800, 950, 1100, 1250, 1400, 1500],
+                        borderColor: '#FF6384',
+                        tension: 0.4,
+                        fill: false
+                    },
+                    {
+                        label: 'Spagnolo',
+                        data: [400, 450, 480, 510, 540, 560],
+                        borderColor: '#36A2EB',
+                        tension: 0.4,
+                        fill: false
+                    },
+                    {
+                        label: 'Hindi',
+                        data: [450, 480, 510, 550, 580, 600],
+                        borderColor: '#FFCE56',
+                        tension: 0.4,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Milioni di parlanti'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Mappa (simulata con bubble chart)
+        new Chart(document.getElementById('mapChart'), {
+            type: 'bubble',
+            data: {
+                datasets: [
+                    {
+                        label: 'Asia',
+                        data: [{x: 100, y: 100, r: 45}],
+                        backgroundColor: '#FF6384'
+                    },
+                    {
+                        label: 'Africa',
+                        data: [{x: 200, y: 200, r: 30}],
+                        backgroundColor: '#36A2EB'
+                    },
+                    {
+                        label: 'Europa',
+                        data: [{x: 300, y: 150, r: 15}],
+                        backgroundColor: '#FFCE56'
+                    },
+                    {
+                        label: 'Americhe',
+                        data: [{x: 150, y: 300, r: 8}],
+                        backgroundColor: '#4BC0C0'
+                    },
+                    {
+                        label: 'Oceania',
+                        data: [{x: 400, y: 250, r: 2}],
+                        backgroundColor: '#9966FF'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.raw.r}% delle lingue mondiali`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: false,
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Animazioni per i numeri
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 10);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.round(current).toLocaleString();
+            }, 10);
+        }
+
+        // Animazione per il contatore delle lingue
+        const langElement = document.querySelector('.stat-box:first-child .number');
+        animateValue(langElement, 0, 7151, 2000);
+    </script>
+</body>
+</html>
