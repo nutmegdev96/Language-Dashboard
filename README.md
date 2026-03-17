@@ -6,7 +6,7 @@
   ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
   ![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green.svg)
   ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
-  ![GitHub Stars](https://img.shields.io/github/stars/nutmegdev96/languages-dashboard?style=social)
+  ![GitHub Stars](https://img.shields.io/github/stars/nutmegdev96/Languages-Dashboard?style=social)
   
   <h3>✨ A futuristic, real-time dashboard tracking the world's most spoken languages ✨</h3>
   
