@@ -20,8 +20,11 @@ Dashboard interattiva che mostra le lingue più parlate nel mondo con grafici e 
 
 ## 📁 Struttura del progetto
 languages-dashboard/
-├── index.html
-└── README.md
+├── index.html              # (file HTML)
+├── main.py                 # Server FastAPI
+├── requirements.txt        
+├── data_generator.py       
+└── static/                 # (opzional)
 
 ## 📝 Fonti dei dati
 - Ethnologue
