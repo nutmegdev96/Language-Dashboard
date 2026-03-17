@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -277,7 +277,21 @@
 
         .footer-links a:hover {
             color: #00ffff;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.2);
+        }
+
+        .made-by {
+            margin-top: 20px;
+            color: #00ffff;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #00ffff; }
+            50% { text-shadow: 0 0 20px #ff00ff; }
+            100% { text-shadow: 0 0 10px #00ffff; }
         }
 
         /* Responsive */
@@ -316,7 +330,7 @@
     <div class="cyber-grid"></div>
 
     <div class="container">
-        <!-- Header futuristica -->
+        <!-- Futuristic Header -->
         <div class="header">
             <div class="glitch-wrapper">
                 <h1>LINGUA<span style="color: #ff00ff;">SPHERE</span></h1>
@@ -325,40 +339,40 @@
             <div class="subtitle">✦ FUTURE LANGUAGE INTELLIGENCE ✦</div>
         </div>
 
-        <!-- Stat cards futuristiche -->
+        <!-- Futuristic Stat Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-globe"></i></div>
-                <div class="stat-label">Lingue nel mondo</div>
+                <div class="stat-label">World Languages</div>
                 <div class="stat-value" id="langCount">7,151</div>
-                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+127 dal 2023</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+127 since 2023</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-users"></i></div>
-                <div class="stat-label">Parlanti totali</div>
+                <div class="stat-label">Total Speakers</div>
                 <div class="stat-value" id="speakersCount">8.1B</div>
-                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+2.3% annuo</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+2.3% yearly</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-crown"></i></div>
-                <div class="stat-label">Lingua dominante</div>
-                <div class="stat-value">Inglese</div>
-                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">1.5B parlanti</div>
+                <div class="stat-label">Dominant Language</div>
+                <div class="stat-value">English</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">1.5B speakers</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="stat-label">In crescita rapida</div>
+                <div class="stat-label">Fastest Growing</div>
                 <div class="stat-value">Hindi</div>
-                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+7.2% annuo</div>
+                <div style="color: rgba(255,255,255,0.3); font-size: 0.8em;">+7.2% yearly</div>
             </div>
         </div>
 
-        <!-- Dashboard principale -->
+        <!-- Main Dashboard -->
         <div class="dashboard-grid">
             <!-- Top Languages Card -->
             <div class="cyber-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-trophy" style="margin-right: 10px;"></i>TOP 10 LINGUE</h2>
+                    <h2><i class="fas fa-trophy" style="margin-right: 10px;"></i>TOP 10 LANGUAGES</h2>
                     <i class="fas fa-chart-bar"></i>
                 </div>
                 <div class="chart-container">
@@ -366,10 +380,10 @@
                 </div>
             </div>
 
-            <!-- Distribution Card -->
+            <!-- Continent Distribution Card -->
             <div class="cyber-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-pie-chart" style="margin-right: 10px;"></i>DISTRIBUZIONE CONTINENTI</h2>
+                    <h2><i class="fas fa-pie-chart" style="margin-right: 10px;"></i>CONTINENT DISTRIBUTION</h2>
                     <i class="fas fa-globe-asia"></i>
                 </div>
                 <div class="chart-container">
@@ -380,7 +394,7 @@
             <!-- Growth Trends Card -->
             <div class="cyber-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-rocket" style="margin-right: 10px;"></i>TREND CRESCITA 2024</h2>
+                    <h2><i class="fas fa-rocket" style="margin-right: 10px;"></i>GROWTH TRENDS 2024</h2>
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <div class="chart-container">
@@ -391,7 +405,7 @@
             <!-- Future Projections Card -->
             <div class="cyber-card">
                 <div class="card-header">
-                    <h2><i class="fas fa-clock" style="margin-right: 10px;"></i>PROIEZIONI 2030</h2>
+                    <h2><i class="fas fa-clock" style="margin-right: 10px;"></i>2030 PROJECTIONS</h2>
                     <i class="fas fa-robot"></i>
                 </div>
                 <div class="chart-container">
@@ -403,30 +417,37 @@
         <!-- World Map Card (Full Width) -->
         <div class="cyber-card world-map-container">
             <div class="card-header">
-                <h2><i class="fas fa-map-marked-alt" style="margin-right: 10px;"></i>MAPPA LINGUISTICA MONDIALE</h2>
+                <h2><i class="fas fa-map-marked-alt" style="margin-right: 10px;"></i>WORLD LANGUAGE MAP</h2>
                 <i class="fas fa-satellite"></i>
             </div>
             <div class="chart-container" style="height: 400px;">
                 <canvas id="worldMap"></canvas>
             </div>
             <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px;">
-                <span><i class="fas fa-circle" style="color: #00ffff;"></i> 1M+ parlanti</span>
-                <span><i class="fas fa-circle" style="color: #ff00ff;"></i> 100M+ parlanti</span>
-                <span><i class="fas fa-circle" style="color: #ffff00;"></i> 500M+ parlanti</span>
+                <span><i class="fas fa-circle" style="color: #00ffff;"></i> 1M+ speakers</span>
+                <span><i class="fas fa-circle" style="color: #ff00ff;"></i> 100M+ speakers</span>
+                <span><i class="fas fa-circle" style="color: #ffff00;"></i> 500M+ speakers</span>
             </div>
         </div>
 
-        <!-- Footer Futuristico -->
+        <!-- Futuristic Footer with your links -->
         <div class="footer">
-            <p style="font-size: 1.2em; color: #00ffff;">✦ DATI IN TEMPO REALE DAL LINGUISTIC AI ✦</p>
-            <p style="color: rgba(255,255,255,0.4); margin: 10px 0;">Fonte: Ethnologue • UNESCO • AI Language Institute 2024</p>
+            <p style="font-size: 1.2em; color: #00ffff;">✦ REAL-TIME DATA FROM LINGUISTIC AI ✦</p>
+            <p style="color: rgba(255,255,255,0.4); margin: 10px 0;">Source: Ethnologue • UNESCO • AI Language Institute 2024</p>
             <div class="footer-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fas fa-chart-network"></i></a>
+                <a href="https://github.com/nutmegdev96" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/simone-macis-7051983a3/" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" target="_blank">
+                    <i class="fas fa-chart-network"></i>
+                </a>
             </div>
-            <p style="margin-top: 20px; color: rgba(255,255,255,0.2);">⚡ PROJECT 20 MINUTES FOR GITHUB • FUTURE IS NOW ⚡</p>
+            <div class="made-by">
+                ⚡ Made by nutmegdev ⚡
+            </div>
         </div>
     </div>
 
@@ -438,7 +459,7 @@
                 labels: ['🇬🇧 English', '🇨🇳 Chinese', '🇮🇳 Hindi', '🇪🇸 Spanish', '🇫🇷 French', 
                          '🇸🇦 Arabic', '🇧🇩 Bengali', '🇵🇹 Portuguese', '🇷🇺 Russian', '🇵🇰 Urdu'],
                 datasets: [{
-                    label: 'Parlanti (milioni)',
+                    label: 'Speakers (millions)',
                     data: [1500, 1100, 600, 560, 310, 300, 270, 260, 255, 230],
                     backgroundColor: [
                         'rgba(0, 255, 255, 0.8)',
@@ -481,7 +502,7 @@
         new Chart(document.getElementById('continentChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Asia', 'Africa', 'Europa', 'Americhe', 'Oceania'],
+                labels: ['Asia', 'Africa', 'Europe', 'Americas', 'Oceania'],
                 datasets: [{
                     data: [45, 30, 15, 8, 2],
                     backgroundColor: [
@@ -576,14 +597,14 @@
             data: {
                 labels: ['English', 'Chinese', 'Hindi', 'Spanish', 'Arabic', 'French'],
                 datasets: [{
-                    label: 'Parlanti 2024',
+                    label: 'Speakers 2024',
                     data: [1500, 1100, 600, 560, 300, 310],
                     backgroundColor: 'rgba(0, 255, 255, 0.2)',
                     borderColor: '#00ffff',
                     pointBackgroundColor: '#fff',
                     pointBorderColor: '#00ffff'
                 }, {
-                    label: 'Proiezione 2030',
+                    label: 'Projection 2030',
                     data: [1700, 1250, 750, 650, 400, 350],
                     backgroundColor: 'rgba(255, 0, 255, 0.2)',
                     borderColor: '#ff00ff',
@@ -616,21 +637,21 @@
             data: {
                 datasets: [
                     {
-                        label: 'America del Nord',
+                        label: 'North America',
                         data: [{ x: 150, y: 100, r: 25 }],
                         backgroundColor: 'rgba(0, 255, 255, 0.6)',
                         borderColor: '#fff',
                         borderWidth: 2
                     },
                     {
-                        label: 'America del Sud',
+                        label: 'South America',
                         data: [{ x: 200, y: 250, r: 18 }],
                         backgroundColor: 'rgba(255, 0, 255, 0.6)',
                         borderColor: '#fff',
                         borderWidth: 2
                     },
                     {
-                        label: 'Europa',
+                        label: 'Europe',
                         data: [{ x: 300, y: 120, r: 22 }],
                         backgroundColor: 'rgba(255, 255, 0, 0.6)',
                         borderColor: '#fff',
@@ -670,7 +691,7 @@
                     tooltip: {
                         callbacks: {
                             label: (context) => {
-                                return `${context.dataset.label}: ${context.raw.r}% delle lingue regionali`;
+                                return `${context.dataset.label}: ${context.raw.r}% of regional languages`;
                             }
                         }
                     }
@@ -688,7 +709,7 @@
             }
         });
 
-        // Animazione numeri
+        // Number animations
         function animateValue(element, start, end, duration) {
             const range = end - start;
             const increment = range / (duration / 10);
