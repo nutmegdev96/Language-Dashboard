@@ -102,3 +102,8 @@ pip install -r requirements.txt
 
 # Run the server
 python main.py
+
+© 2026 nutmeg.dev 
+Site code licensed under MIT. 
+Content all rights reserved.
+
